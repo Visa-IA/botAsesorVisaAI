@@ -17,6 +17,8 @@ const client = new vision.ImageAnnotatorClient();
 
 const PORT = process.env.PORT ?? 3001
 
+const welcomeflow = addKeyword(EVENTS.WELCOME).addAnswer('Hola, soy un bot de WhatsApp. Por favor envia una imagen para analizarla.');
+
 const flowPrincipal = addKeyword(EVENTS.MEDIA)
     .addAnswer('He recibido y justo ahora estoy consultando la información, por favor espera un momento.', null, async (ctx, { flowDynamic }) => {
         const numeroDeWhatsapp = ctx.from;
@@ -61,7 +63,7 @@ const queue = new Queue({
 
 const main = async () => {
     const adapterDB = new MockAdapter()
-    const adapterFlow = createFlow([flowPrincipal])
+    const adapterFlow = createFlow([flowPrincipal,welcomeflow])
     const adapterProvider = createProvider(BaileysProvider)
 
     const bot = await createBot({
