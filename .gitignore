@@ -6,3 +6,4 @@ node_modules
 public/*
 !public/.gitkeep
 client_secret.json
+text.txt
